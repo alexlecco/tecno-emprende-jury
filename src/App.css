@@ -35,6 +35,10 @@
   background-color: #282c34;
 }
 
+.gridContainer {
+  padding: 5px 0;
+}
+
 /* ProjectCard */
 .projectCard {
   background-color: beige;

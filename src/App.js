@@ -15,29 +15,18 @@ export default class App extends Component {
 
         <div bsStyle="container">
           <Grid>
-            <Row className="show-grid">
+            <Row>
               <Col xs={18} md={12}>
-                <ProjectCard />
+                <ProjectCard projectName={"proyecto 1"}
+                             projectAuthor={"Gonzalo Gonzalez"}
+                             totalInvestment={155000} />
               </Col>
             </Row>
-            <Row className="show-grid">
+            <Row>
               <Col xs={18} md={12}>
-                <ProjectCard />
-              </Col>
-            </Row>
-            <Row className="show-grid">
-              <Col xs={18} md={12}>
-                <ProjectCard />
-              </Col>
-            </Row>
-            <Row className="show-grid">
-              <Col xs={18} md={12}>
-                <ProjectCard />
-              </Col>
-            </Row>
-            <Row className="show-grid">
-              <Col xs={18} md={12}>
-                <ProjectCard />
+                <ProjectCard projectName={"proyecto 1"}
+                             projectAuthor={"Gonzalo Gonzalez"}
+                             totalInvestment={155000} />
               </Col>
             </Row>
           </Grid>
