@@ -1,23 +1,48 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import { Grid, Row, Col, } from 'react-bootstrap';
+
 import ProjectCard from './components/ProjectCard';
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div>
         <header className="App-header">
           <p>TecnoEmprende 2018</p>
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
         </header>
+
+        <div bsStyle="container">
+          <Grid>
+            <Row className="show-grid">
+              <Col xs={18} md={12}>
+                <ProjectCard />
+              </Col>
+            </Row>
+            <Row className="show-grid">
+              <Col xs={18} md={12}>
+                <ProjectCard />
+              </Col>
+            </Row>
+            <Row className="show-grid">
+              <Col xs={18} md={12}>
+                <ProjectCard />
+              </Col>
+            </Row>
+            <Row className="show-grid">
+              <Col xs={18} md={12}>
+                <ProjectCard />
+              </Col>
+            </Row>
+            <Row className="show-grid">
+              <Col xs={18} md={12}>
+                <ProjectCard />
+              </Col>
+            </Row>
+          </Grid>
+        </div>
       </div>
     );
   }
 }
-
-export default App;

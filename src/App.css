@@ -9,7 +9,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 15vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,4 +29,18 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.app-container {
+  background-color: #282c34;
+}
+
+/* ProjectCard */
+.projectCard {
+  background-color: beige;
+  color: #111111;
+  padding: 20px;
+  margin-top: 5px;
+  border-radius: 5px;
+  width: 100%;
 }
