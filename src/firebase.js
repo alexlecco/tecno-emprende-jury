@@ -1,7 +1,6 @@
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 
-// Initialize Firebase
-const firebaseConfig = {
+var firebaseConfig = {
     apiKey: "AIzaSyDzrjcWIaL1FiQHaJAYBlZvpaqlLa6xVRo",
     authDomain: "tecnoemprende-8c3a1.firebaseapp.com",
     databaseURL: "https://tecnoemprende-8c3a1.firebaseio.com",
@@ -9,10 +8,6 @@ const firebaseConfig = {
     storageBucket: "tecnoemprende-8c3a1.appspot.com",
     messagingSenderId: "1089655845640"
 };
-firebase.initializeApp(firebaseConfig);
+var firebaseApp = firebase.initializeApp(firebaseConfig);
 
-const firebaseApp = firebase;
-
-export {
-	firebaseApp,
-};
+export default firebaseApp;
