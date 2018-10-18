@@ -25,9 +25,11 @@ export default class ProjectCard extends Component {
 							<Row className="cellContainer">
 								Total de inversiones recibidas
 							</Row>
-							<Row className="cellContainer">
-								$ {this.props.totalInvestment}
-							</Row>
+							<div className="totalInvestment">
+								<Row className="cellContainer">
+									$ {this.props.totalInvestment}
+								</Row>
+							</div>
 						</Col>
 						<Col xs={5} md={3}>
 							<Row className="cellContainer">

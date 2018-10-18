@@ -10,12 +10,16 @@ export default class ProjectsContainer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			investments: [],
 			projects: [],
+			total_investments: [],
 		}
+		this.investmentsRef = firebaseApp.database().ref().child('investments');
 		this.projectsRef = firebaseApp.database().ref().child('projects');
 	}
-	
-	componentDidMount() {
+
+	componentWillMount() {
+		this.listenForInvestments(this.investmentsRef);
 		this.listenForProjects(this.projectsRef);
 	}
 
@@ -28,11 +32,30 @@ export default class ProjectsContainer extends Component {
 					description: child.val().description,
 					id: child.val().id,
 					name: child.val().name,
-					_key: child.key
+					total_investment: child.val().total_investment,
+					_key: child.key,
 				});
 			});
 			this.setState({
 				projects: projects
+			});
+		});
+	}
+
+	listenForInvestments(investmentsRef) {
+		investmentsRef.on('value', snap => {
+			let investments = [];
+			snap.forEach((child) => {
+				investments.push({
+					author: child.val().author,
+					description: child.val().description,
+					id: child.val().id,
+					name: child.val().name,
+					_key: child.key,
+				});
+			});
+			this.setState({
+				investments: investments
 			});
 		});
 	}
@@ -45,11 +68,11 @@ export default class ProjectsContainer extends Component {
 						<Row>
 							{
 								this.state.projects.map(
-									(project) => 
+									(project) =>
 										<ProjectCard
 											projectName={project.name}
 											projectAuthor={project.author}
-											totalInvestment={10000} />
+											totalInvestment={project.total_investment} />
 								)
 							}
 						</Row>

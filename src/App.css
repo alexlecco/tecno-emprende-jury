@@ -40,6 +40,15 @@
   padding: 5px 0;
 }
 
+.statistics-container {
+  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
 /* ProjectCard */
 .projectCard {
   background-color: beige;
@@ -48,4 +57,8 @@
   margin-top: 5px;
   border-radius: 5px;
   width: 100%;
+}
+
+.totalInvestment {
+  font-size: calc(5px + 2vmin);
 }

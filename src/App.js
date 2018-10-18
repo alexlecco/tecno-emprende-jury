@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { Grid, Row, Col, } from 'react-bootstrap';
-
 import ProjectsContainer from './components/ProjectsContainer';
+import StatisticsContainer from './components/StatisticsContainer';
 
 export default class App extends Component {
   render() {
@@ -12,9 +11,8 @@ export default class App extends Component {
         <header className="App-header">
           <p>TecnoEmprende 2018</p>
         </header>
-
+        <StatisticsContainer />
         <ProjectsContainer />
-        
       </div>
     );
   }
