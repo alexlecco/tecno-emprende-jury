@@ -41,9 +41,6 @@ export default class ProjectCard extends Component {
 						</Col>
 						<Col xs={5} md={3}>
 							<Row className="cellContainer">
-								Estrellas restantes: 5
-							</Row>
-							<Row className="cellContainer">
 									<Button bsStyle="primary">Votar</Button>
 							</Row>
 							<Row className="cellContainer">
