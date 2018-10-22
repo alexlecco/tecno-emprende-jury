@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import '../App.css';
 
 import { Grid, Row, Col, Button, } from 'react-bootstrap';
+import Rating from 'react-rating';
 import firebaseApp from '../firebase';
 
-import Rating from 'react-rating';
 
 export default class ProjectCard extends Component {
 	constructor(props) {
@@ -78,6 +78,7 @@ export default class ProjectCard extends Component {
 							</Row>
 							<Row className="cellContainer">
 								<Rating
+									initialRating={this.state.rating}
 									onClick={(value) => this.setState({ rating: value })}
 								/>
 							</Row>
