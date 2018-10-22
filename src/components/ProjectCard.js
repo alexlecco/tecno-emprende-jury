@@ -18,7 +18,7 @@ export default class ProjectCard extends Component {
 		let current_stars = this.props.jury.remaining_stars - this.state.rating;
 		let new_total_stars = this.props.project.total_stars + this.state.rating;
 		
-		if(current_stars > 0) {
+		if(current_stars >= 0) {
 			firebaseApp.database()
 								.ref(`juries/${this.props.jury.id}`)
 								.update({remaining_stars: current_stars}
@@ -38,11 +38,12 @@ export default class ProjectCard extends Component {
 									.update({total_stars: new_total_stars}
 			);
 			
-			this.setState({ rating: 0 });
 			alert("Voto realizado con exito");
+			this.setState({ rating: 0 });
 
 		} else {
 			alert("Estrellas insuficientes");
+			this.setState({ rating: 0 });
 		}
 	}
 
