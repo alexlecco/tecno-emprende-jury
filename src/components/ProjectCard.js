@@ -77,7 +77,8 @@ export default class ProjectCard extends Component {
 						</Col>
 						<Col xs={5} md={3}>
 							<Row className="cellContainer">
-									<Button bsStyle="primary" onClick={() => this.voteProject()}>Votar</Button>
+								<Button bsStyle="success" onClick={() => this.voteProject()}>Votar</Button>
+								<Button bsStyle="danger" onClick={() => {this.setState({ rating: 0 })}}>Limpiar</Button>
 							</Row>
 							<Row className="cellContainer">
 								<Rating
