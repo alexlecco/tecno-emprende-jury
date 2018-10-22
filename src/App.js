@@ -4,6 +4,7 @@ import './App.css';
 import ProjectsContainer from './components/ProjectsContainer';
 import StatisticsContainer from './components/StatisticsContainer';
 import HeaderContainer from './components/HeaderContainer';
+import WinnerInvestorsContainer from './components/WinnerInvestorsContainer'
 
 import firebaseApp from './firebase';
 
@@ -16,14 +17,72 @@ export default class App extends Component {
         name: '',
         remaining_stars: 0,
       },
+      project: {
+        name: '',
+        author: '',
+        description: '',
+        total_investment: 0,
+        total_stars: 0,
+        id: '',
+      },
+      showWinnerInvestors: false,
+      investors: [],
       loggedJuryId: '',
       logged: false,
     }
     this.juriesRef = firebaseApp.database().ref().child('juries');
+    this.investorsRef = firebaseApp.database().ref().child('investors');
   }
 
   componentWillMount() {
     this.selectJury(this.juriesRef);
+    this.listenForInvestors(this.investorsRef);
+  }
+
+  listenForInvestors(investorsRef) {
+    investorsRef.on('value', (snap) => {
+      let investors = [];
+      snap.forEach((child) => {
+        investors.push({
+          id: child.val().id,
+          name: child.val().name,
+          remaining_funds: child.val().remaining_funds,
+          _key: child.key,
+        });
+      });
+
+      this.setState({
+        investors: investors
+      })
+    });
+  }
+
+  showWinnerInvestors(project) {
+    if(!this.state.showWinnerInvestors) {
+      this.setState({showWinnerInvestors: !this.state.showWinnerInvestors,
+                      project: {
+                        name: project.name,
+                        author: project.author,
+                        description: project.description,
+                        total_investment: project.total_investment,
+                        total_stars: project.total_stars,
+                        id: project.id,
+                      }
+      });
+    }
+    else {
+      this.setState({
+          showWinnerInvestors: !this.state.showWinnerInvestors,
+          project: {
+          name: '',
+          author: '',
+          description: '',
+          total_investment: '',
+          total_stars: '',
+          id: '',
+        }
+      });
+    }
   }
 
   getObjectOfArray(array, index) {
@@ -57,12 +116,27 @@ export default class App extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <HeaderContainer loggedJury={this.state.loggedJury}  />
-        <StatisticsContainer />
-        <ProjectsContainer jury={this.state.loggedJury} />
-      </div>
-    );
+    if(this.state.showWinnerInvestors) {
+      return (
+        <div>
+          <HeaderContainer loggedJury={this.state.loggedJury}  />
+          <StatisticsContainer />
+          <WinnerInvestorsContainer
+            project={this.state.project}
+            investors={this.state.investors}
+            showWinnerInvestors={this.showWinnerInvestors.bind(this)} />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <HeaderContainer loggedJury={this.state.loggedJury}  />
+          <StatisticsContainer />
+          <ProjectsContainer
+            jury={this.state.loggedJury}
+            showWinnerInvestors={this.showWinnerInvestors.bind(this)} />
+        </div>
+      );
+    }
   }
 }

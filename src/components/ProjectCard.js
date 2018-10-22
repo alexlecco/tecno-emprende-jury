@@ -54,7 +54,7 @@ export default class ProjectCard extends Component {
 					<Row>
 						<Col xs={8} md={6}>
 							<Row className="cellContainer">
-								{this.props.project.name}
+								<a onClick={(project) => {this.props.showWinnerInvestors(project)}}>{this.props.project.name}</a>
 							</Row>
 							<Row className="cellContainer">
 								{this.props.project.author}

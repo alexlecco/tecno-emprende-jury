@@ -72,7 +72,8 @@ export default class ProjectsContainer extends Component {
 									(project) =>
 										<ProjectCard
 											project={project}
-											jury={this.props.jury} />
+											jury={this.props.jury}
+											showWinnerInvestors={this.props.showWinnerInvestors.bind(this)} />
 								)
 							}
 						</Row>
