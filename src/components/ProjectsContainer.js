@@ -33,6 +33,7 @@ export default class ProjectsContainer extends Component {
 					id: child.val().id,
 					name: child.val().name,
 					total_investment: child.val().total_investment,
+					total_stars: child.val().total_stars,
 					_key: child.key,
 				});
 			});
@@ -70,9 +71,8 @@ export default class ProjectsContainer extends Component {
 								this.state.projects.map(
 									(project) =>
 										<ProjectCard
-											projectName={project.name}
-											projectAuthor={project.author}
-											totalInvestment={project.total_investment} />
+											project={project}
+											jury={this.props.jury} />
 								)
 							}
 						</Row>

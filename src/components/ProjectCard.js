@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import '../App.css';
 
 import { Grid, Row, Col, Button, } from 'react-bootstrap';
-import StarRatingComponent from 'react-star-rating-component';
+import firebaseApp from '../firebase';
+
+import Rating from 'react-rating';
 
 export default class ProjectCard extends Component {
 	constructor(props) {
@@ -11,10 +13,38 @@ export default class ProjectCard extends Component {
       rating: 0
     };
 	}
+	
+	voteProject() {
+		let current_stars = this.props.jury.remaining_stars - this.state.rating;
+		let new_total_stars = this.props.project.total_stars + this.state.rating;
+		
+		if(current_stars > 0) {
+			firebaseApp.database()
+								.ref(`juries/${this.props.jury.id}`)
+								.update({remaining_stars: current_stars}
+			);
 
-	onStarClick(nextValue, prevValue, name) {
-    this.setState({rating: nextValue});
-  }
+			firebaseApp.database()
+								.ref()
+								.child('votes').push({
+									jury: this.props.jury.id,
+									project: this.props.project.id,
+									stars_assigned: this.state.rating,
+									timestamp: Date.now(),
+			});
+			
+			firebaseApp.database()
+									.ref(`/projects/${this.props.project.id}`)
+									.update({total_stars: new_total_stars}
+			);
+			
+			this.setState({ rating: 0 });
+			alert("Voto realizado con exito");
+
+		} else {
+			alert("Estrellas insuficientes");
+		}
+	}
 
 	render() {
 		return (
@@ -23,10 +53,13 @@ export default class ProjectCard extends Component {
 					<Row>
 						<Col xs={8} md={6}>
 							<Row className="cellContainer">
-								{this.props.projectName}
+								{this.props.project.name}
 							</Row>
 							<Row className="cellContainer">
-								{this.props.projectAuthor}
+								{this.props.project.author}
+							</Row>
+							<Row className="cellContainer">
+								Total de estrellas: {this.props.project.total_stars}
 							</Row>
 						</Col>
 						<Col xs={5} md={3}>
@@ -35,21 +68,21 @@ export default class ProjectCard extends Component {
 							</Row>
 							<div className="totalInvestment">
 								<Row className="cellContainer">
-									${this.props.totalInvestment}
+									$ {this.props.project.total_investment}
 								</Row>
 							</div>
 						</Col>
 						<Col xs={5} md={3}>
 							<Row className="cellContainer">
-									<Button bsStyle="primary">Votar</Button>
+									<Button bsStyle="primary" onClick={() => this.voteProject()}>Votar</Button>
 							</Row>
 							<Row className="cellContainer">
-								<StarRatingComponent 
-									name="rate1" 
-									starCount={5}
-									value={this.state.rating}
-									onStarClick={this.onStarClick.bind(this)}
+								<Rating
+									onClick={(value) => this.setState({ rating: value })}
 								/>
+							</Row>
+							<Row className="cellContainer">
+								<div>{this.state.rating}</div>
 							</Row>
 						</Col>
 					</Row>

@@ -31,7 +31,7 @@ export default class App extends Component {
 
   selectJury(juriesRef) {
     juriesRef.on('value', (snap) => {
-      const juryId = 'jur2';
+      const juryId = 'jur1';
       let juries = [];
 
       snap.forEach((child) => {
@@ -64,7 +64,7 @@ export default class App extends Component {
           <p>Estrellas restantes: {this.state.loggedJury.remaining_stars}</p>
         </header>
         <StatisticsContainer />
-        <ProjectsContainer />
+        <ProjectsContainer jury={this.state.loggedJury} />
       </div>
     );
   }
