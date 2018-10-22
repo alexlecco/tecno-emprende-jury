@@ -19,7 +19,13 @@ export default class WinnerInvestorsContainer extends Component {
 						<Button bsStyle="primary" onClick={() => {this.props.showWinnerInvestors()}}>Volver</Button>
 					</div>
 					<div className="center-container">
-						Podio de inversores del proyecto: {this.props.project.name}
+						Inversiones: $ {this.props.project.total_investment}
+					</div>
+					<div className="center-container">
+						Estrellas: {this.props.project.total_stars}
+					</div>
+					<div className="center-container">
+						Inversiones recibidas del proyecto: {this.props.project.name}
 					</div>
 					<Grid>
 						<Row>
