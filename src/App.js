@@ -60,27 +60,27 @@ export default class App extends Component {
   showWinnerInvestors(project) {
     if(!this.state.showWinnerInvestors) {
       this.setState({showWinnerInvestors: !this.state.showWinnerInvestors,
-                      project: {
-                        name: project.name,
-                        author: project.author,
-                        description: project.description,
-                        total_investment: project.total_investment,
-                        total_stars: project.total_stars,
-                        id: project.id,
-                      }
+                     project: {
+                       name: project.name,
+                       author: project.author,
+                       description: project.description,
+                       total_investment: project.total_investment,
+                       total_stars: project.total_stars,
+                       id: project.id,
+                     }
       });
     }
     else {
       this.setState({
           showWinnerInvestors: !this.state.showWinnerInvestors,
           project: {
-          name: '',
-          author: '',
-          description: '',
-          total_investment: '',
-          total_stars: '',
-          id: '',
-        }
+            name: '',
+            author: '',
+            description: '',
+            total_investment: '',
+            total_stars: '',
+            id: '',
+          }
       });
     }
   }
@@ -122,9 +122,9 @@ export default class App extends Component {
           <HeaderContainer loggedJury={this.state.loggedJury}  />
           <StatisticsContainer />
           <WinnerInvestorsContainer
-            project={this.state.project}
             investors={this.state.investors}
-            showWinnerInvestors={this.showWinnerInvestors.bind(this)} />
+            showWinnerInvestors={this.showWinnerInvestors.bind(this)}
+            project={this.state.project} />
         </div>
       );
     } else {

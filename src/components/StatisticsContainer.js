@@ -25,7 +25,7 @@ export default class StatisticsContainer extends Component {
   
   render() {
 		return(
-			<div className="statistics-container">
+			<div className="center-container">
         Total de inversiones: $ {this.state.APTI}
 			</div>
 		);
