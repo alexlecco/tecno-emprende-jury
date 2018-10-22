@@ -3,6 +3,7 @@ import './App.css';
 
 import ProjectsContainer from './components/ProjectsContainer';
 import StatisticsContainer from './components/StatisticsContainer';
+import HeaderContainer from './components/HeaderContainer';
 
 import firebaseApp from './firebase';
 
@@ -58,11 +59,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <header className="App-header">
-          <p>TecnoEmprende 2018</p>
-          <p>Jurado: {this.state.loggedJury.name}</p>
-          <p>Estrellas restantes: {this.state.loggedJury.remaining_stars}</p>
-        </header>
+        <HeaderContainer loggedJury={this.state.loggedJury}  />
         <StatisticsContainer />
         <ProjectsContainer jury={this.state.loggedJury} />
       </div>
