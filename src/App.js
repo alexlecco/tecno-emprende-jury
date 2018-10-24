@@ -27,16 +27,19 @@ export default class App extends Component {
       },
       showWinnerInvestors: false,
       investors: [],
+      investments: [],
       loggedJuryId: '',
       logged: false,
     }
     this.juriesRef = firebaseApp.database().ref().child('juries');
     this.investorsRef = firebaseApp.database().ref().child('investors');
+    this.investmentsRef = firebaseApp.database().ref().child('investments');
   }
 
   componentWillMount() {
     this.selectJury(this.juriesRef);
     this.listenForInvestors(this.investorsRef);
+    this.listenForInvestments(this.investmentsRef);
   }
 
   listenForInvestors(investorsRef) {
@@ -53,6 +56,25 @@ export default class App extends Component {
 
       this.setState({
         investors: investors
+      })
+    });
+  }
+
+  listenForInvestments(investmentsRef) {
+    investmentsRef.on('value', (snap) => {
+      let investments = [];
+      snap.forEach((child) => {
+        investments.push({
+          investor: child.val().investor,
+          money_assigned: child.val().money_assigned,
+          project: child.val().project,
+          timestamp: child.val().timestamp,
+          _key: child.key,
+        });
+      });
+
+      this.setState({
+        investments: investments
       })
     });
   }
@@ -105,7 +127,7 @@ export default class App extends Component {
         }
       });
 
-      this.setState({ 
+      this.setState({
         loggedJury: {
           name: this.getObjectOfArray(juries, 0).name,
           remaining_stars: this.getObjectOfArray(juries, 0).remaining_stars,
@@ -123,6 +145,7 @@ export default class App extends Component {
           <StatisticsContainer />
           <WinnerInvestorsContainer
             investors={this.state.investors}
+            investments={this.state.investments}
             showWinnerInvestors={this.showWinnerInvestors.bind(this)}
             project={this.state.project} />
         </div>
