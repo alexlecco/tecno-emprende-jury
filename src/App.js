@@ -50,6 +50,7 @@ export default class App extends Component {
           id: child.val().id,
           name: child.val().name,
           remaining_funds: child.val().remaining_funds,
+          investor_total_investment: child.val().investor_total_investment,
           _key: child.key,
         });
       });
@@ -154,7 +155,7 @@ export default class App extends Component {
       return (
         <div>
           <HeaderContainer loggedJury={this.state.loggedJury}  />
-          <StatisticsContainer />
+          <StatisticsContainer investors={this.state.investors} />
           <ProjectsContainer
             jury={this.state.loggedJury}
             showWinnerInvestors={this.showWinnerInvestors.bind(this)} />
