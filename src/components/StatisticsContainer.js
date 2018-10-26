@@ -19,7 +19,7 @@ export default class StatisticsContainer extends Component {
       
       investors.map(
         (investor) =>
-          APTI += investor.investor_total_investment
+          APTI += investor.inverted_funds
         );
       
         this.setState({ APTI: APTI });
@@ -30,7 +30,11 @@ export default class StatisticsContainer extends Component {
 		return(
 			<div className="center-container">
         Total de inversiones: $ {this.state.APTI}
-        <Button bsStyle="primary" onClick={() => this.updateAPTI(this.APTIRef, this.props.investors)}>Actualizar</Button>
+        <Button 
+          bsStyle="primary"
+          onClick={() => this.updateAPTI(this.APTIRef, this.props.investors)}>
+            Actualizar
+        </Button>
 			</div>
 		);
 	}

@@ -50,7 +50,7 @@ export default class App extends Component {
           id: child.val().id,
           name: child.val().name,
           remaining_funds: child.val().remaining_funds,
-          investor_total_investment: child.val().investor_total_investment,
+          inverted_funds: child.val().inverted_funds,
           _key: child.key,
         });
       });
@@ -143,7 +143,7 @@ export default class App extends Component {
       return (
         <div>
           <HeaderContainer loggedJury={this.state.loggedJury}  />
-          <StatisticsContainer />
+          <StatisticsContainer investors={this.state.investors} />
           <WinnerInvestorsContainer
             investors={this.state.investors}
             investments={this.state.investments}
