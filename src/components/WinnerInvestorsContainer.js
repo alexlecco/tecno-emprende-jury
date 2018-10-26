@@ -25,17 +25,22 @@ export default class WinnerInvestorsContainer extends Component {
 						Estrellas: {this.props.project.total_stars}
 					</div>
 					<div className="center-container">
-						Inversiones recibidas del proyecto: {this.props.project.name}
+						Inversiones recibidas en el proyecto: {this.props.project.name}
 					</div>
 					<Grid>
 						<Row>
 							{
 								this.props.investors.map(
-									(investor) =>
-										<WinnerInvestorCard
-											investor={investor}
-										/>
-									)
+									(investor) => {
+										return (
+											<WinnerInvestorCard
+												project={this.props.project}
+												investor={investor}
+												investments={this.props.investments}
+											/>
+										)
+									}
+								)
 							}
 						</Row>
 					</Grid>
