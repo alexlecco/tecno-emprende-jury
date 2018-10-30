@@ -50,7 +50,7 @@ export default class App extends Component {
           id: child.val().id,
           name: child.val().name,
           remaining_funds: child.val().remaining_funds,
-          inverted_funds: child.val().inverted_funds,
+          invested_funds: child.val().invested_funds,
           _key: child.key,
         });
       });

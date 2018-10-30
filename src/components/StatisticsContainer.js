@@ -19,7 +19,7 @@ export default class StatisticsContainer extends Component {
       
       investors.map(
         (investor) =>
-          APTI += investor.inverted_funds
+          APTI += investor.invested_funds
         );
       
         this.setState({ APTI: APTI });
