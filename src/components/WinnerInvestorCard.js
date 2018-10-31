@@ -28,7 +28,25 @@ export default class WinnerInvestorContainer extends Component {
 		const { investments } = this.props;
 		let investments_in_project = this.calculateInvestments(investments);
 		
-		let timestamp_inMS = this.props.investor.investments_inProjects.proj1.last_timestamp;
+		let timestamp_inMS = 0;
+		let partial_investment = 0;
+		switch(this.props.project.id) {
+			case 'proj1': 
+				timestamp_inMS = this.props.investor.investments_inProjects.proj1.last_timestamp;
+				partial_investment = this.props.investor.investments_inProjects.proj1.partial_investment;
+				break;
+			case 'proj2': 
+				timestamp_inMS = this.props.investor.investments_inProjects.proj2.last_timestamp;
+				partial_investment = this.props.investor.investments_inProjects.proj2.partial_investment;
+				break;
+			case 'proj3': 
+				timestamp_inMS = this.props.investor.investments_inProjects.proj3.last_timestamp;
+				partial_investment = this.props.investor.investments_inProjects.proj3.partial_investment;
+				break;
+			default:
+				break;
+		}
+
 		let timestamp_inDATE = new Date(timestamp_inMS);
 		let hours = timestamp_inDATE.getHours();
 		let minutes = "0" + timestamp_inDATE.getMinutes();
@@ -49,7 +67,7 @@ export default class WinnerInvestorContainer extends Component {
 								</Col> 
 								<Col xs={2}>
 									<Row className="cellContainer">
-										$ {this.props.investor.investments_inProjects.proj1.partial_investment}
+										$ {partial_investment}
 									</Row>
 								</Col>
 								<Col xs={2}>
