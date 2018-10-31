@@ -26,53 +26,17 @@ export default class App extends Component {
         id: '',
       },
       showWinnerInvestors: false,
-      investors: [],
       investments: [],
       loggedJuryId: '',
       logged: false,
     }
     this.juriesRef = firebaseApp.database().ref().child('juries');
-    this.investorsRef = firebaseApp.database().ref().child('investors');
     this.investmentsRef = firebaseApp.database().ref().child('investments');
   }
 
   componentWillMount() {
     this.selectJury(this.juriesRef);
-    this.listenForInvestors(this.investorsRef);
     this.listenForInvestments(this.investmentsRef);
-  }
-
-  listenForInvestors(investorsRef) {
-    investorsRef.on('value', (snap) => {
-      let investors = [];
-      snap.forEach((child) => {
-        investors.push({
-          id: child.val().id,
-          invested_funds: child.val().invested_funds,
-          investments_inProjects: {
-            proj1: {
-              partial_investment: child.val().investments_inProjects.proj1.partial_investment,
-              last_timestamp: child.val().investments_inProjects.proj1.last_timestamp,
-            },
-            proj2: {
-              partial_investment: child.val().investments_inProjects.proj2.partial_investment,
-              last_timestamp: child.val().investments_inProjects.proj2.last_timestamp,
-            },
-            proj3: {
-              partial_investment: child.val().investments_inProjects.proj3.partial_investment,
-              last_timestamp: child.val().investments_inProjects.proj3.last_timestamp,
-            }
-          },
-          name: child.val().name,
-          remaining_funds: child.val().remaining_funds,
-          _key: child.key,
-        });
-      });
-
-      this.setState({
-        investors: investors
-      })
-    });
   }
 
   listenForInvestments(investmentsRef) {
@@ -157,9 +121,8 @@ export default class App extends Component {
       return (
         <div>
           <HeaderContainer loggedJury={this.state.loggedJury}  />
-          <StatisticsContainer investors={this.state.investors} />
+          <StatisticsContainer investments={this.state.investments} />
           <WinnerInvestorsContainer
-            investors={this.state.investors}
             investments={this.state.investments}
             showWinnerInvestors={this.showWinnerInvestors.bind(this)}
             project={this.state.project} />
@@ -169,7 +132,7 @@ export default class App extends Component {
       return (
         <div>
           <HeaderContainer loggedJury={this.state.loggedJury}  />
-          <StatisticsContainer investors={this.state.investors} />
+          <StatisticsContainer investments={this.state.investments} />
           <ProjectsContainer
             jury={this.state.loggedJury}
             showWinnerInvestors={this.showWinnerInvestors.bind(this)} />

@@ -1,15 +1,54 @@
 import React, { Component } from 'react';
 import '../App.css';
-
 import { Grid, Row, Button, } from 'react-bootstrap';
-
 import WinnerInvestorCard from './WinnerInvestorCard';
+import firebaseApp from '../firebase';
 
 export default class WinnerInvestorsContainer extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+      investors: [],
+		};
+    this.investorsRef = firebaseApp.database().ref().child('investors');
 	}
+
+	componentWillMount() {
+    this.listenForInvestors(this.investorsRef);
+  }
+
+	listenForInvestors(investorsRef) {
+    investorsRef.on('value', (snap) => {
+      let investors = [];
+      snap.forEach((child) => {
+        investors.push({
+          id: child.val().id,
+          invested_funds: child.val().invested_funds,
+          investments_inProjects: {
+            proj1: {
+              partial_investment: child.val().investments_inProjects.proj1.partial_investment,
+              last_timestamp: child.val().investments_inProjects.proj1.last_timestamp,
+            },
+            proj2: {
+              partial_investment: child.val().investments_inProjects.proj2.partial_investment,
+              last_timestamp: child.val().investments_inProjects.proj2.last_timestamp,
+            },
+            proj3: {
+              partial_investment: child.val().investments_inProjects.proj3.partial_investment,
+              last_timestamp: child.val().investments_inProjects.proj3.last_timestamp,
+            }
+          },
+          name: child.val().name,
+          remaining_funds: child.val().remaining_funds,
+          _key: child.key,
+        });
+      });
+
+      this.setState({
+        investors: investors
+      })
+    });
+  }
 
 	render() {
 		return (
@@ -30,7 +69,7 @@ export default class WinnerInvestorsContainer extends Component {
 					<Grid>
 						<Row>
 							{
-								this.props.investors.map(
+								this.state.investors.map(
 									(investor) => {
 										return (
 											<WinnerInvestorCard

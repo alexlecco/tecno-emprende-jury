@@ -13,13 +13,13 @@ export default class StatisticsContainer extends Component {
     this.APTIRef = firebaseApp.database().ref().child('all_projects_total_investment');
   }
 
-  updateAPTI(APTIRef, investors) {
-    APTIRef.once('value', (snap) => {
+  updateAPTI(APTIRef, investments) {
+  APTIRef.once('value', (snap) => {
       let APTI = snap.val();
       
-      investors.map(
-        (investor) =>
-          APTI += investor.invested_funds
+      investments.map(
+        (investments) =>
+          APTI += investments.money_assigned
         );
       
         this.setState({ APTI: APTI });
@@ -32,7 +32,7 @@ export default class StatisticsContainer extends Component {
         Total de inversiones: $ {this.state.APTI}
         <Button 
           bsStyle="primary"
-          onClick={() => this.updateAPTI(this.APTIRef, this.props.investors)}>
+          onClick={() => this.updateAPTI(this.APTIRef, this.props.investments)}>
             Actualizar
         </Button>
 			</div>
