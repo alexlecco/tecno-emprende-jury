@@ -46,7 +46,16 @@ export default class WinnerInvestorsContainer extends Component {
 			
 			investors.sort(
 				(a,b) => {
-					return a.investments_inProjects.proj1.partial_investment < b.investments_inProjects.proj1.partial_investment
+					const project = this.props.project.id;
+					switch(project) {
+						case 'proj1':
+							return a.investments_inProjects.proj1.partial_investment < b.investments_inProjects.proj1.partial_investment;
+						case 'proj2':
+							return a.investments_inProjects.proj2.partial_investment < b.investments_inProjects.proj2.partial_investment;
+						case 'proj3':
+							return a.investments_inProjects.proj3.partial_investment < b.investments_inProjects.proj3.partial_investment;
+						default:
+					}
 				}
 			)
 
