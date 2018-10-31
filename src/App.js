@@ -48,9 +48,23 @@ export default class App extends Component {
       snap.forEach((child) => {
         investors.push({
           id: child.val().id,
+          invested_funds: child.val().invested_funds,
+          investments_inProjects: {
+            proj1: {
+              partial_investment: child.val().investments_inProjects.proj1.partial_investment,
+              last_timestamp: child.val().investments_inProjects.proj1.last_timestamp,
+            },
+            proj2: {
+              partial_investment: child.val().investments_inProjects.proj2.partial_investment,
+              last_timestamp: child.val().investments_inProjects.proj2.last_timestamp,
+            },
+            proj3: {
+              partial_investment: child.val().investments_inProjects.proj3.partial_investment,
+              last_timestamp: child.val().investments_inProjects.proj3.last_timestamp,
+            }
+          },
           name: child.val().name,
           remaining_funds: child.val().remaining_funds,
-          invested_funds: child.val().invested_funds,
           _key: child.key,
         });
       });
