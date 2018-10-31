@@ -10,7 +10,7 @@ export default class WinnerInvestorsContainer extends Component {
 		this.state = {
       investors: [],
 		};
-    this.investorsRef = firebaseApp.database().ref().child('investors');
+		this.investorsRef = firebaseApp.database().ref().child('investors');
 	}
 
 	componentWillMount() {
@@ -42,7 +42,13 @@ export default class WinnerInvestorsContainer extends Component {
           remaining_funds: child.val().remaining_funds,
           _key: child.key,
         });
-      });
+			});
+			
+			investors.sort(
+				(a,b) => {
+					return a.investments_inProjects.proj1.partial_investment < b.investments_inProjects.proj1.partial_investment
+				}
+			)
 
       this.setState({
         investors: investors
