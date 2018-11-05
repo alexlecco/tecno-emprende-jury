@@ -112,7 +112,7 @@ export default class App extends Component {
           remaining_stars: this.getObjectOfArray(juries, 0).remaining_stars,
           id: this.getObjectOfArray(juries, 0).id,
         }
-       })
+      })
     });
   }
 

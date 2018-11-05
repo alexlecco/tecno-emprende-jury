@@ -49,11 +49,23 @@ export default class WinnerInvestorsContainer extends Component {
 					const project = this.props.project.id;
 					switch(project) {
 						case 'proj1':
-							return a.investments_inProjects.proj1.partial_investment < b.investments_inProjects.proj1.partial_investment;
+							if(a.investments_inProjects.proj1.partial_investment === b.investments_inProjects.proj1.partial_investment) {
+								return a.investments_inProjects.proj1.last_timestamp > b.investments_inProjects.proj1.last_timestamp;							
+							} else {
+								return a.investments_inProjects.proj1.partial_investment < b.investments_inProjects.proj1.partial_investment;
+							}
 						case 'proj2':
-							return a.investments_inProjects.proj2.partial_investment < b.investments_inProjects.proj2.partial_investment;
+							if(a.investments_inProjects.proj2.partial_investment === b.investments_inProjects.proj2.partial_investment) {
+								return a.investments_inProjects.proj2.last_timestamp > b.investments_inProjects.proj2.last_timestamp;							
+							} else {
+								return a.investments_inProjects.proj2.partial_investment < b.investments_inProjects.proj2.partial_investment;
+							}
 						case 'proj3':
-							return a.investments_inProjects.proj3.partial_investment < b.investments_inProjects.proj3.partial_investment;
+							if(a.investments_inProjects.proj3.partial_investment === b.investments_inProjects.proj3.partial_investment) {
+								return a.investments_inProjects.proj3.last_timestamp > b.investments_inProjects.proj3.last_timestamp;							
+							} else {
+								return a.investments_inProjects.proj3.partial_investment < b.investments_inProjects.proj3.partial_investment;
+							}
 						default:
 					}
 				}
