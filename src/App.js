@@ -5,6 +5,7 @@ import ProjectsContainer from './components/ProjectsContainer';
 import StatisticsContainer from './components/StatisticsContainer';
 import HeaderContainer from './components/HeaderContainer';
 import WinnerInvestorsContainer from './components/WinnerInvestorsContainer'
+import LoginCard from './components/LoginCard'
 
 import firebaseApp from './firebase';
 
@@ -35,7 +36,7 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    this.selectJury(this.juriesRef);
+    //this.selectJury(this.juriesRef);
     this.listenForInvestments(this.investmentsRef);
   }
 
@@ -111,31 +112,41 @@ export default class App extends Component {
           name: this.getObjectOfArray(juries, 0).name,
           remaining_stars: this.getObjectOfArray(juries, 0).remaining_stars,
           id: this.getObjectOfArray(juries, 0).id,
-        }
+        },
+        logged: true,
       })
     });
   }
 
   render() {
-    if(this.state.showWinnerInvestors) {
-      return (
-        <div>
-          <HeaderContainer loggedJury={this.state.loggedJury}  />
-          <StatisticsContainer investments={this.state.investments} />
-          <WinnerInvestorsContainer
-            investments={this.state.investments}
-            showWinnerInvestors={this.showWinnerInvestors.bind(this)}
-            project={this.state.project} />
-        </div>
-      );
+    if(this.state.logged) {
+      if(this.state.showWinnerInvestors) {
+        return (
+          <div>
+            <HeaderContainer loggedJury={this.state.loggedJury}  />
+            <StatisticsContainer investments={this.state.investments} />
+            <WinnerInvestorsContainer
+              investments={this.state.investments}
+              showWinnerInvestors={this.showWinnerInvestors.bind(this)}
+              project={this.state.project} />
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <HeaderContainer loggedJury={this.state.loggedJury}  />
+            <StatisticsContainer investments={this.state.investments} />
+            <ProjectsContainer
+              jury={this.state.loggedJury}
+              showWinnerInvestors={this.showWinnerInvestors.bind(this)} />
+          </div>
+        );
+      }
     } else {
-      return (
+      return(
         <div>
-          <HeaderContainer loggedJury={this.state.loggedJury}  />
-          <StatisticsContainer investments={this.state.investments} />
-          <ProjectsContainer
-            jury={this.state.loggedJury}
-            showWinnerInvestors={this.showWinnerInvestors.bind(this)} />
+          <HeaderContainer loggedJury={this.state.loggedJury} />
+          <LoginCard />
         </div>
       );
     }
